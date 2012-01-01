@@ -37,7 +37,7 @@ def chain(n):
 
 def the_simple_chain():
     start = 2
-    limit = 20
+    limit = 1000000
     max_length = 1
     max_num = 1
     for i in range(start, limit):
@@ -72,8 +72,8 @@ def the_recursive_chain():
             max_length = len(chain_list)
             max_num = i
         # print i, ":", chain_list
-        if i % 10000 == 0:
-            print i,"done"
+        # if i % 10000 == 0:
+        #    print i,"done"
     
     return max_num
 
