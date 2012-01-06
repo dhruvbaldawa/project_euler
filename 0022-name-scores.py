@@ -14,10 +14,11 @@ def the_obvious_way():
     names = names.split('","') # a workaround to skip the csv parsing
     names.sort()
     
+    # the preceding space is because we want alphabets with indices 1..26
     letters = list(" ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     sum_ = 0
     for name in names:
-        ind = names.index(name) + 1
+        ind = names.index(name) + 1 # since array indexing starts from 0
         total = sum([letters.index(x) for x in name])
         score = ind * total
         sum_ = sum_ + score
