@@ -28,7 +28,7 @@ def get_prime(n):
         i = i + 2
     return n
 
-def get_optimized_prime(n,s):
+def get_optimized_prime(n):
     if n < 4:
         return n
     while n % 2 == 0 and n != 2 : n = n/2
