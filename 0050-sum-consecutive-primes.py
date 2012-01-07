@@ -37,15 +37,23 @@ def traditional():
     l = []
     max_ = 1
     max_prime = 2
-    for i in range(1, len(primes_list)):
-        for k in range(1, i + 1):
-            for j in range(k, i + 1):
-                if sum(primes_list[k:j]) == primes_list[i]:
-                    if len(primes_list[k:j]) > max_:
-                        max_ = len(primes_list[k:j])
-                        max_prime = primes_list[i]
-                    l.append(primes_list[i])
-
+    sum_ = 0
+    sum_primes = []
+    
+    # Perform sum of primes
+    for prime in primes_list:
+        sum_ = sum_ + prime
+        if sum_ >= limit:
+            break
+        sum_primes.append(sum_)
+    
+    n_terms = 1
+    for i in range(len(sum_primes)):
+        for j in range(i + n_terms, len(sum_primes)):
+            n = sum_primes[j] - sum_primes[i]
+            if j - i > n_terms and n in primes_list:
+                n_terms = j - i
+                max_prime = n
     return max_prime
 
     
