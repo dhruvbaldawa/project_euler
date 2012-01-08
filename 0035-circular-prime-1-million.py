@@ -34,36 +34,34 @@ def the_usual_method():
     start = 2
     end = 1000000
     
-    done = {}
-    
     # get all the primes from start to end
     primes = [x for x in enumerate_primes(end)]
-    circular_prime_counter = 0
+    # counting 2 as prime
+    circular_prime_counter = 1
     
-    for i in primes:
-        if i in done:
-            continue
-            
-        done[i] = True
-            
+    for i in primes:            
         num_str = deque(str(i))
-        
         count = 0
         
+        # excluding primes with even numbers in their digits
+        if '2' in num_str or '4' in num_str or '6' in num_str \
+            or '8' in num_str or '0' in num_str:
+            continue
+        
+        # checking for the circularity
         for x in range(len(num_str)):
             # right circular shift
             num_str.rotate(1)
             
             num = int(''.join(num_str))
             
-            if num in primes or num in done:
-                done[num] = True
+            if num in primes:
                 count = count + 1
             else:
                 break
         
         if count == len(num_str):
-            circular_prime_counter = circular_prime_counter + count
+            circular_prime_counter = circular_prime_counter + 1
     
     return circular_prime_counter
     
