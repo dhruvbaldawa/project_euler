@@ -43,17 +43,19 @@ def full_adder(a, b, carry = 0):
 def the_usual_method():
     start = 1
     limit = 1000000
-    last = number_to_binary(start - 1)
-    
+        
     l = []
     for i in range(start, limit):
-        last = full_adder(last, [1])
-        bin = [str(x) for x in last]
-        bin_rev = bin[:]
+        # convert the number to binary
+        bin = number_to_binary(i)
+        # copy the binary
+        bin_rev = last[:]
+        # reverse the binary
         bin_rev.reverse()
+        # check for the palindrome
         if bin_rev == bin and str(i)[::-1] == str(i):
             l.append(i)
     
-    return len(l)
+    return sum(l)
 
 print "Answer:", the_usual_method()
