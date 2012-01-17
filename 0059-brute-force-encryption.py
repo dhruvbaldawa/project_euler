@@ -20,25 +20,82 @@ Using cipher1.txt (right click and 'Save Link/Target As...'), a file containing 
 ASCII codes, and the knowledge that the plain text must contain common English words,
 decrypt the message and find the sum of the ASCII values in the original text.
 """
+from itertools import permutations
+
 def encrypt(iterable, key):
+    """
+    Function to encrypt a given iterable using a key
+    The key can also be an iterable or any atomic type
+    """
     encrypted_data = []
-    for x in iterable:
-        encrypted_data.append(ord(x) ^ key)
+
+    # Some type checking
+    if type(key) not in (list, tuple):
+        try:
+            key = list(key)
+        except TypeError:
+            key = [key]
+
+    # The encryption process
+    for i in range(0, len(iterable), len(key)):
+        try:
+            for j in range(len(key)):
+                encrypted_data.append(ord(iterable[i + j]) ^ key[j])
+        except IndexError:
+            break
+
     return encrypted_data
 
 def decrypt(iterable, key):
+    """
+    Function to decrypt a given iterable using a key
+    The key can also be an iterable or any atomic type
+    """
     decrypted_data = []
-    for x in iterable:
-        decrypted_data.append(chr(x ^ key))
+
+    # Some type checking and conversions
+    if type(key) not in (list, tuple):
+        try:
+            key = list(key)
+        except TypeError:
+            key = [key]
+
+    # The Decryption process
+    for i in range(0, len(iterable), len(key)):
+        try:
+            for j in range(len(key)):
+                decrypted_data.append(chr(iterable[i + j] ^ key[j]))
+        except IndexError:
+            break
+
     return decrypted_data
 
 
 def brute_force():
-    a = [65, 66, 67, 68, 69, 70]
-    encryption_key = 10
-    decryption_key = 10
+    # Getting the data from the file
+    f = open("cipher1.txt").read().split(",")
+    x = [int(n) for n in f]
 
-    ans = encrypt(decrypt(list(a), encryption_key), decryption_key)
+    # Generating keys and checking
+    alpha = "abcdefghijklmnopqrstuvwxyz"
+
+    # Determined by trial and error
+    max = 200
+    max_key = None
+    for t_key in permutations(alpha, 3):
+        key = [ord(a) for a in t_key]
+        data = ''.join(decrypt(x, key))
+
+        # Applying frequency analysis for space
+        if max < data.count(' '):
+            max = data.count(' ')
+            max_key = key
+            print max, t_key, ''.join(data)
+
+    ans = decrypt(x, max_key)
+    ans = [ord(char) for char in ans]
+    ans = sum(ans)
+
     return ans
 
 print "Answer: ", brute_force()
