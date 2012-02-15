@@ -29,10 +29,10 @@ def chain(n):
         return cache[1]
     else:
         if n % 2 == 0:
-            cache[n] = [n] + chain(n/2)
+            cache[n] = [n] + chain(n / 2)
             return cache[n]
         else:
-            cache[n] = [n] + chain(3*n+1)
+            cache[n] = [n] + chain(3 * n + 1)
             return cache[n]
 
 def the_simple_chain():
@@ -40,22 +40,23 @@ def the_simple_chain():
     limit = 1000000
     max_length = 1
     max_num = 1
-    for i in range(start, limit):
+    for i in xrange(start, limit):
         chain = [i]
         last_element = i
-    
+
         while last_element > 1:
-    
+
             if last_element % 2 == 0:
                 last_element = last_element / 2
             else:
                 last_element = 3 * last_element + 1
             chain.append(last_element)
-            
+
         # print i, ":", chain
         if len(chain) > max_length:
-            max_num = i 
-    
+            max_num = i
+            max_length = len(chain)
+
     return max_num
 
 def the_recursive_chain():
@@ -63,19 +64,19 @@ def the_recursive_chain():
     limit = 1000000
     max_length = 1
     max_num = 1
-    
+
     for i in range(start, limit):
         chain_list = [i]
         chain_list = chain(i)
-        
+
         if len(chain_list) > max_length:
             max_length = len(chain_list)
             max_num = i
         # print i, ":", chain_list
-        # if i % 10000 == 0:
-        #    print i,"done"
-    
+        if i % 10000 == 0:
+            print i, "done"
+
     return max_num
 
-print "Answer by simple chain method:", the_simple_chain()   
-print "Answer by recursive chain method:", the_recursive_chain()   
+# print "Answer by simple chain method:", the_simple_chain()
+print "Answer by recursive chain method:", the_recursive_chain()
