@@ -50,7 +50,7 @@ def replace_alternate(num, den):
             continue
 
         if Fraction(10*num+i, 10*i+den) == Fraction(num, den):
-            frac_list.append(Fraction(num, den))
+            f_list.append(Fraction(num, den))
 
         elif Fraction(10*i+num, 10*den+i) == Fraction(num, den):
             f_list.append(Fraction(num, den))
