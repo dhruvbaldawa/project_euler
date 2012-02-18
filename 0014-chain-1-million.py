@@ -65,7 +65,7 @@ def the_recursive_chain():
     max_length = 1
     max_num = 1
 
-    for i in range(start, limit):
+    for i in xrange(limit, start, -1):
         chain_list = [i]
         chain_list = chain(i)
 
