@@ -62,7 +62,7 @@ def get_recursive_prime_factors(n):
     if n in cache:
         return cache[n]
     # Get the list of primes
-    primes = enumerate_primes(n)
+    primes = enumerate_primes(int(math.sqrt(n)) + 1)
     l = []
     # If the list of primes is empty, return
     if not primes:
